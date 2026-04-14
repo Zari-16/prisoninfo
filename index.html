@@ -234,33 +234,31 @@
   .author-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
   .author-item {
     background: #0d1228;
     border-radius: 6px;
-    padding: 10px 12px;
+    padding: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    position: relative;
-    overflow: hidden;
+    gap: 8px;
   }
 
-  /* Left section: avatar + text */
+  /* Top row: avatar + text */
   .author-left {
     display: flex;
     align-items: center;
-    gap: 9px;
-    flex: 1;
-    min-width: 0;
+    gap: 8px;
+    width: 100%;
   }
 
   .author-avatar {
-    width: 34px; height: 34px; border-radius: 50%;
+    width: 30px; height: 30px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700;
+    font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700;
     flex-shrink: 0;
   }
   .a1 { background: #00f5ff22; border: 1px solid var(--neon-cyan);   color: var(--neon-cyan);   }
@@ -268,32 +266,22 @@
   .a3 { background: #0080ff22; border: 1px solid var(--neon-blue);   color: var(--neon-blue);   }
   .a4 { background: #00ff8822; border: 1px solid var(--neon-green);  color: var(--neon-green);  }
 
-  .author-info { min-width: 0; }
-  .author-name { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .author-id   { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+  .author-info { min-width: 0; flex: 1; }
+  .author-name { font-size: 12px; font-weight: 700; line-height: 1.25; }
+  .author-id   { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
-  /* QR code container */
+  /* QR sits below the name row, centred */
   .author-qr {
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
+    width: 76px;
+    height: 76px;
     border-radius: 4px;
     overflow: hidden;
-    position: relative;
   }
 
-  /* Neon glow border for QR */
-  .author-qr::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    pointer-events: none;
-  }
-  .author-item:nth-child(1) .author-qr { box-shadow: 0 0 6px #00f5ff88, 0 0 12px #00f5ff44; border: 1px solid #00f5ff66; }
-  .author-item:nth-child(2) .author-qr { box-shadow: 0 0 6px #bf00ff88, 0 0 12px #bf00ff44; border: 1px solid #bf00ff66; }
-  .author-item:nth-child(3) .author-qr { box-shadow: 0 0 6px #0080ff88, 0 0 12px #0080ff44; border: 1px solid #0080ff66; }
-  .author-item:nth-child(4) .author-qr { box-shadow: 0 0 6px #00ff8888, 0 0 12px #00ff8844; border: 1px solid #00ff8866; }
+  .author-item:nth-child(1) .author-qr { box-shadow: 0 0 6px #00f5ff88, 0 0 14px #00f5ff44; border: 1px solid #00f5ff66; }
+  .author-item:nth-child(2) .author-qr { box-shadow: 0 0 6px #bf00ff88, 0 0 14px #bf00ff44; border: 1px solid #bf00ff66; }
+  .author-item:nth-child(3) .author-qr { box-shadow: 0 0 6px #0080ff88, 0 0 14px #0080ff44; border: 1px solid #0080ff66; }
+  .author-item:nth-child(4) .author-qr { box-shadow: 0 0 6px #00ff8888, 0 0 14px #00ff8844; border: 1px solid #00ff8866; }
 
   .author-qr img {
     width: 100%;
@@ -523,7 +511,8 @@
       </div>
       <div class="supervisor-box">
         <div class="supervisor-label">▸ Module Supervisor</div>
-        <div class="supervisor-name">CST2590 — Internet of Things</div>
+        <div class="supervisor-name">Mr Nivede Issur</div>
+        <div class="author-id" style="margin-top:3px; font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--text-dim);">CST2590 — Internet of Things</div>
       </div>
     </div>
 
