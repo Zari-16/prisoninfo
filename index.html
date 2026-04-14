@@ -35,7 +35,6 @@
     padding: 20px;
   }
 
-  /* ── POSTER WRAPPER ── */
   .poster {
     width: 900px;
     background: var(--bg-dark);
@@ -125,23 +124,10 @@
     pointer-events: none;
   }
 
-  /* Neon border variants */
-  .card-cyan {
-    border: 1.5px solid var(--neon-cyan);
-    box-shadow: 0 0 12px #00f5ff44, inset 0 0 20px #00f5ff08;
-  }
-  .card-purple {
-    border: 1.5px solid var(--neon-purple);
-    box-shadow: 0 0 12px #bf00ff44, inset 0 0 20px #bf00ff08;
-  }
-  .card-blue {
-    border: 1.5px solid var(--neon-blue);
-    box-shadow: 0 0 12px #0080ff44, inset 0 0 20px #0080ff08;
-  }
-  .card-green {
-    border: 1.5px solid var(--neon-green);
-    box-shadow: 0 0 12px #00ff8844, inset 0 0 20px #00ff8808;
-  }
+  .card-cyan   { border: 1.5px solid var(--neon-cyan);   box-shadow: 0 0 12px #00f5ff44, inset 0 0 20px #00f5ff08; }
+  .card-purple { border: 1.5px solid var(--neon-purple); box-shadow: 0 0 12px #bf00ff44, inset 0 0 20px #bf00ff08; }
+  .card-blue   { border: 1.5px solid var(--neon-blue);   box-shadow: 0 0 12px #0080ff44, inset 0 0 20px #0080ff08; }
+  .card-green  { border: 1.5px solid var(--neon-green);  box-shadow: 0 0 12px #00ff8844, inset 0 0 20px #00ff8808; }
 
   /* ── CARD HEADER ── */
   .card-title {
@@ -156,7 +142,7 @@
     align-items: center;
     gap: 8px;
   }
-  .card-cyan .card-title  { color: var(--neon-cyan);   border-bottom: 1px solid #00f5ff44; text-shadow: var(--glow-cyan); }
+  .card-cyan .card-title   { color: var(--neon-cyan);   border-bottom: 1px solid #00f5ff44; text-shadow: var(--glow-cyan); }
   .card-purple .card-title { color: var(--neon-purple); border-bottom: 1px solid #bf00ff44; text-shadow: var(--glow-purple); }
   .card-blue .card-title   { color: var(--neon-blue);   border-bottom: 1px solid #0080ff44; text-shadow: var(--glow-blue); }
   .card-green .card-title  { color: var(--neon-green);  border-bottom: 1px solid #00ff8844; text-shadow: var(--glow-green); }
@@ -165,7 +151,7 @@
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     animation: pulse 2s infinite;
   }
-  .card-cyan .dot  { background: var(--neon-cyan);   box-shadow: var(--glow-cyan); }
+  .card-cyan .dot   { background: var(--neon-cyan);   box-shadow: var(--glow-cyan); }
   .card-purple .dot { background: var(--neon-purple); box-shadow: var(--glow-purple); }
   .card-blue .dot   { background: var(--neon-blue);   box-shadow: var(--glow-blue); }
   .card-green .dot  { background: var(--neon-green);  box-shadow: var(--glow-green); }
@@ -245,23 +231,77 @@
   .stat-green  .stat-num { color: var(--neon-green);  text-shadow: var(--glow-green); }
 
   /* ── AUTHOR CARD ── */
-  .author-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .author-item {
-    background: #0d1228; border-radius: 4px; padding: 8px 12px;
-    display: flex; align-items: center; gap: 9px;
+  .author-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
+
+  .author-item {
+    background: #0d1228;
+    border-radius: 6px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Left section: avatar + text */
+  .author-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex: 1;
+    min-width: 0;
+  }
+
   .author-avatar {
-    width: 32px; height: 32px; border-radius: 50%;
+    width: 34px; height: 34px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700;
+    font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700;
     flex-shrink: 0;
   }
   .a1 { background: #00f5ff22; border: 1px solid var(--neon-cyan);   color: var(--neon-cyan);   }
   .a2 { background: #bf00ff22; border: 1px solid var(--neon-purple); color: var(--neon-purple); }
   .a3 { background: #0080ff22; border: 1px solid var(--neon-blue);   color: var(--neon-blue);   }
   .a4 { background: #00ff8822; border: 1px solid var(--neon-green);  color: var(--neon-green);  }
-  .author-name { font-size: 13px; font-weight: 700; }
+
+  .author-info { min-width: 0; }
+  .author-name { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .author-id   { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+
+  /* QR code container */
+  .author-qr {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Neon glow border for QR */
+  .author-qr::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .author-item:nth-child(1) .author-qr { box-shadow: 0 0 6px #00f5ff88, 0 0 12px #00f5ff44; border: 1px solid #00f5ff66; }
+  .author-item:nth-child(2) .author-qr { box-shadow: 0 0 6px #bf00ff88, 0 0 12px #bf00ff44; border: 1px solid #bf00ff66; }
+  .author-item:nth-child(3) .author-qr { box-shadow: 0 0 6px #0080ff88, 0 0 12px #0080ff44; border: 1px solid #0080ff66; }
+  .author-item:nth-child(4) .author-qr { box-shadow: 0 0 6px #00ff8888, 0 0 12px #00ff8844; border: 1px solid #00ff8866; }
+
+  .author-qr img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.2) brightness(1.05);
+  }
 
   .supervisor-box {
     margin-top: 12px; background: #0d1228; border-radius: 4px;
@@ -305,7 +345,6 @@
   .corner-bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
   .corner-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
 
-  /* Animated scan line */
   @keyframes scan {
     0%   { top: -2px; opacity: 0.7; }
     100% { top: 100%; opacity: 0; }
@@ -424,34 +463,63 @@
     <div class="card card-cyan">
       <div class="card-title"><span class="dot"></span>Author &amp; Supervisor</div>
       <div class="author-grid">
+
+        <!-- Darenn -->
         <div class="author-item">
-          <div class="author-avatar a1">DR</div>
-          <div>
-            <div class="author-name">Darenn Ramsamy</div>
-            <div class="author-id">M01036587</div>
+          <div class="author-left">
+            <div class="author-avatar a1">DR</div>
+            <div class="author-info">
+              <div class="author-name">Darenn Ramsamy</div>
+              <div class="author-id">M01036587</div>
+            </div>
+          </div>
+          <div class="author-qr">
+            <img src="darenn.png" alt="QR – Darenn Ramsamy">
           </div>
         </div>
+
+        <!-- Ezekiel -->
         <div class="author-item">
-          <div class="author-avatar a2">EA</div>
-          <div>
-            <div class="author-name">Ezekiel Adegbemle</div>
-            <div class="author-id">M00973404</div>
+          <div class="author-left">
+            <div class="author-avatar a2">EA</div>
+            <div class="author-info">
+              <div class="author-name">Ezekiel Adegbemle</div>
+              <div class="author-id">M00973404</div>
+            </div>
+          </div>
+          <div class="author-qr">
+            <img src="Ezekiel.png" alt="QR – Ezekiel Adegbemle">
           </div>
         </div>
+
+        <!-- Zariyat -->
         <div class="author-item">
-          <div class="author-avatar a3">ZM</div>
-          <div>
-            <div class="author-name">Zariyat Maudarbux</div>
-            <div class="author-id">M01014970</div>
+          <div class="author-left">
+            <div class="author-avatar a3">ZM</div>
+            <div class="author-info">
+              <div class="author-name">Zariyat Maudarbux</div>
+              <div class="author-id">M01014970</div>
+            </div>
+          </div>
+          <div class="author-qr">
+            <img src="Zariyat.png" alt="QR – Zariyat Maudarbux">
           </div>
         </div>
+
+        <!-- Lawson -->
         <div class="author-item">
-          <div class="author-avatar a4">LA</div>
-          <div>
-            <div class="author-name">Lawson Archy</div>
-            <div class="author-id">M01017315</div>
+          <div class="author-left">
+            <div class="author-avatar a4">LA</div>
+            <div class="author-info">
+              <div class="author-name">Lawson Archy</div>
+              <div class="author-id">M01017315</div>
+            </div>
+          </div>
+          <div class="author-qr">
+            <img src="Lawson.png" alt="QR – Lawson Archy">
           </div>
         </div>
+
       </div>
       <div class="supervisor-box">
         <div class="supervisor-label">▸ Module Supervisor</div>
