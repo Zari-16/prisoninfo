@@ -8,38 +8,46 @@
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
 
   :root {
-    --neon-cyan: #00f5ff;
+    --neon-cyan:   #00f5ff;
     --neon-purple: #bf00ff;
-    --neon-blue: #0080ff;
-    --neon-green: #00ff88;
-    --bg-dark: #06080f;
-    --bg-card: #0b0f1e;
-    --bg-card2: #0d1228;
-    --text-main: #e8eeff;
-    --text-dim: #8899cc;
-    --glow-cyan: 0 0 8px #00f5ff, 0 0 20px #00f5ff55, 0 0 40px #00f5ff22;
+    --neon-blue:   #0080ff;
+    --neon-green:  #00ff88;
+    --bg-dark:     #06080f;
+    --bg-card:     #0b0f1e;
+    --bg-inner:    #0d1228;
+    --text-main:   #e8eeff;
+    --text-dim:    #8899cc;
+    --glow-cyan:   0 0 8px #00f5ff, 0 0 20px #00f5ff55, 0 0 40px #00f5ff22;
     --glow-purple: 0 0 8px #bf00ff, 0 0 20px #bf00ff55, 0 0 40px #bf00ff22;
-    --glow-blue: 0 0 8px #0080ff, 0 0 20px #0080ff55;
-    --glow-green: 0 0 8px #00ff88, 0 0 20px #00ff8855;
+    --glow-blue:   0 0 8px #0080ff, 0 0 20px #0080ff55;
+    --glow-green:  0 0 8px #00ff88, 0 0 20px #00ff8855;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg-dark);
     font-family: 'Rajdhani', sans-serif;
     color: var(--text-main);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    padding: 12px;
   }
 
+  /* ── SCANLINES ── */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 999;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+    );
+  }
+
+  /* ── POSTER ── */
   .poster {
-    width: 900px;
-    background: var(--bg-dark);
-    padding: 0 0 32px 0;
-    position: relative;
+    max-width: 920px;
+    margin: 0 auto;
+    padding-bottom: 24px;
   }
 
   /* ── HEADER ── */
@@ -47,33 +55,42 @@
     background: linear-gradient(135deg, #0a1628 0%, #111b3a 50%, #0a1628 100%);
     border-bottom: 2px solid var(--neon-cyan);
     box-shadow: var(--glow-cyan);
-    padding: 28px 36px 24px;
+    padding: clamp(16px, 4vw, 32px) clamp(14px, 5vw, 40px);
     text-align: center;
     position: relative;
     overflow: hidden;
   }
   .header::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background: repeating-linear-gradient(
       0deg, transparent, transparent 40px,
       rgba(0,245,255,0.03) 40px, rgba(0,245,255,0.03) 41px
     );
     pointer-events: none;
   }
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scan {
+    0%   { top: -2px; opacity: 0.7; }
+    100% { top: 100%; opacity: 0; }
+  }
   .header-badge {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 4px;
+    font-size: clamp(8px, 2vw, 11px);
+    letter-spacing: clamp(2px, 1vw, 4px);
     color: var(--neon-cyan);
     text-shadow: var(--glow-cyan);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     text-transform: uppercase;
   }
   .header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 42px;
+    font-size: clamp(26px, 8vw, 48px);
     font-weight: 900;
     line-height: 1.1;
     background: linear-gradient(90deg, var(--neon-cyan), #fff 40%, var(--neon-purple));
@@ -84,8 +101,8 @@
   }
   .header-sub {
     font-family: 'Orbitron', monospace;
-    font-size: 14px;
-    letter-spacing: 6px;
+    font-size: clamp(9px, 2.5vw, 14px);
+    letter-spacing: clamp(2px, 1.5vw, 6px);
     color: var(--neon-purple);
     text-shadow: var(--glow-purple);
     margin-top: 6px;
@@ -93,50 +110,44 @@
   }
   .header-course {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
+    font-size: clamp(9px, 1.8vw, 11px);
     color: var(--text-dim);
-    margin-top: 10px;
-    letter-spacing: 3px;
+    margin-top: 8px;
+    letter-spacing: clamp(1px, 0.8vw, 3px);
+    line-height: 1.7;
   }
 
   /* ── GRID ── */
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    padding: 16px 20px;
+    gap: 12px;
+    padding: 12px clamp(8px, 2.5vw, 20px);
+  }
+  @media (max-width: 580px) {
+    .grid { grid-template-columns: 1fr; }
   }
 
-  /* ── CARD BASE ── */
+  /* ── CARDS ── */
   .card {
     background: var(--bg-card);
-    border-radius: 6px;
-    padding: 20px 22px;
+    border-radius: 8px;
+    padding: clamp(12px, 3vw, 22px);
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s;
   }
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 6px;
-    pointer-events: none;
-  }
+  .card-cyan   { border: 1.5px solid var(--neon-cyan);   box-shadow: 0 0 12px #00f5ff33, inset 0 0 20px #00f5ff07; }
+  .card-purple { border: 1.5px solid var(--neon-purple); box-shadow: 0 0 12px #bf00ff33, inset 0 0 20px #bf00ff07; }
+  .card-blue   { border: 1.5px solid var(--neon-blue);   box-shadow: 0 0 12px #0080ff33, inset 0 0 20px #0080ff07; }
+  .card-green  { border: 1.5px solid var(--neon-green);  box-shadow: 0 0 12px #00ff8833, inset 0 0 20px #00ff8807; }
 
-  .card-cyan   { border: 1.5px solid var(--neon-cyan);   box-shadow: 0 0 12px #00f5ff44, inset 0 0 20px #00f5ff08; }
-  .card-purple { border: 1.5px solid var(--neon-purple); box-shadow: 0 0 12px #bf00ff44, inset 0 0 20px #bf00ff08; }
-  .card-blue   { border: 1.5px solid var(--neon-blue);   box-shadow: 0 0 12px #0080ff44, inset 0 0 20px #0080ff08; }
-  .card-green  { border: 1.5px solid var(--neon-green);  box-shadow: 0 0 12px #00ff8844, inset 0 0 20px #00ff8808; }
-
-  /* ── CARD HEADER ── */
   .card-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 13px;
+    font-size: clamp(10px, 2vw, 13px);
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     padding-bottom: 8px;
     display: flex;
     align-items: center;
@@ -155,14 +166,19 @@
   .card-purple .dot { background: var(--neon-purple); box-shadow: var(--glow-purple); }
   .card-blue .dot   { background: var(--neon-blue);   box-shadow: var(--glow-blue); }
   .card-green .dot  { background: var(--neon-green);  box-shadow: var(--glow-green); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  @keyframes pulse {
-    0%,100% { opacity: 1; } 50% { opacity: 0.4; }
+  /* ── CORNER BRACKETS ── */
+  .corner {
+    position: absolute; width: 14px; height: 14px;
+    border-color: var(--neon-cyan); border-style: solid;
   }
+  .corner-tl { top: 4px; left: 4px;   border-width: 2px 0 0 2px; }
+  .corner-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
 
   /* ── BODY TEXT ── */
   .body-text {
-    font-size: 13.5px;
+    font-size: clamp(12px, 1.8vw, 13.5px);
     line-height: 1.65;
     color: #c8d4f0;
     font-weight: 500;
@@ -170,95 +186,118 @@
   .body-text p { margin-bottom: 8px; }
   .body-text p:last-child { margin-bottom: 0; }
 
-  /* ── PILL TAGS ── */
-  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  /* ── ETHICS BOX ── */
+  .ethics-box {
+    background: #00ff8808;
+    border: 1px dashed #00ff8844;
+    border-radius: 4px;
+    padding: 9px 12px;
+    margin-top: 10px;
+    font-size: clamp(10px, 1.6vw, 12px);
+    color: var(--neon-green);
+    font-family: 'Share Tech Mono', monospace;
+    line-height: 1.55;
+    text-shadow: var(--glow-green);
+  }
+
+  /* ── TECH GRID ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  @media (max-width: 360px) {
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+  .tech-item {
+    background: var(--bg-inner);
+    border-radius: 4px;
+    padding: 7px 10px;
+    border-left: 2px solid;
+    font-size: clamp(10px, 1.6vw, 12.5px);
+    font-weight: 600;
+  }
+  .tech-item.cyan   { border-color: var(--neon-cyan); }
+  .tech-item.purple { border-color: var(--neon-purple); }
+  .tech-item.blue   { border-color: var(--neon-blue); }
+  .tech-item.green  { border-color: var(--neon-green); }
+  .tech-item span {
+    display: block;
+    font-size: clamp(9px, 1.4vw, 10.5px);
+    color: var(--text-dim);
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  /* ── STAT BOXES ── */
+  .stats-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .stat-box {
+    flex: 1; text-align: center;
+    background: var(--bg-inner);
+    border-radius: 4px;
+    padding: 10px 4px;
+  }
+  .stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight: 900; line-height: 1;
+  }
+  .stat-label {
+    font-size: clamp(8px, 1.4vw, 10px);
+    color: var(--text-dim);
+    font-family: 'Share Tech Mono', monospace;
+    margin-top: 3px; letter-spacing: 1px;
+  }
+  .stat-cyan   .stat-num { color: var(--neon-cyan);   text-shadow: var(--glow-cyan); }
+  .stat-purple .stat-num { color: var(--neon-purple); text-shadow: var(--glow-purple); }
+  .stat-green  .stat-num { color: var(--neon-green);  text-shadow: var(--glow-green); }
+
+  /* ── TAGS ── */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .tag {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    padding: 3px 10px;
+    font-size: clamp(9px, 1.5vw, 11px);
+    padding: 3px 8px;
     border-radius: 3px;
-    letter-spacing: 1px;
   }
   .tag-cyan   { border: 1px solid var(--neon-cyan);   color: var(--neon-cyan);   background: #00f5ff11; }
   .tag-purple { border: 1px solid var(--neon-purple); color: var(--neon-purple); background: #bf00ff11; }
   .tag-blue   { border: 1px solid var(--neon-blue);   color: var(--neon-blue);   background: #0080ff11; }
   .tag-green  { border: 1px solid var(--neon-green);  color: var(--neon-green);  background: #00ff8811; }
 
-  /* ── TECH STACK GRID ── */
-  .tech-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  .tech-item {
-    background: #0d1228;
-    border-radius: 4px;
-    padding: 8px 11px;
-    border-left: 2px solid;
-    font-size: 12.5px;
-    font-weight: 600;
-  }
-  .tech-item.cyan   { border-color: var(--neon-cyan);   }
-  .tech-item.purple { border-color: var(--neon-purple); }
-  .tech-item.blue   { border-color: var(--neon-blue);   }
-  .tech-item.green  { border-color: var(--neon-green);  }
-  .tech-item span   { display: block; font-size: 10.5px; color: var(--text-dim); font-family: 'Share Tech Mono', monospace; font-weight: 400; margin-top: 2px; }
-
-  /* ── SENSOR ROW ── */
-  .sensor-list { display: flex; flex-direction: column; gap: 6px; }
-  .sensor-row {
-    display: flex; align-items: center; gap: 10px;
-    background: #0d1228; border-radius: 4px; padding: 7px 11px;
-    font-size: 12.5px; font-weight: 600;
-  }
-  .sensor-icon { font-size: 14px; }
-  .sensor-desc { font-size: 11px; color: var(--text-dim); font-family: 'Share Tech Mono', monospace; margin-left: auto; }
-
-  /* ── STAT BOXES ── */
-  .stats-row { display: flex; gap: 10px; margin-bottom: 12px; }
-  .stat-box {
-    flex: 1; text-align: center; background: #0d1228;
-    border-radius: 4px; padding: 10px 6px;
-  }
-  .stat-num {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 22px; font-weight: 900; line-height: 1;
-  }
-  .stat-label { font-size: 10px; color: var(--text-dim); font-family: 'Share Tech Mono', monospace; margin-top: 3px; letter-spacing: 1px; }
-  .stat-cyan   .stat-num { color: var(--neon-cyan);   text-shadow: var(--glow-cyan); }
-  .stat-purple .stat-num { color: var(--neon-purple); text-shadow: var(--glow-purple); }
-  .stat-green  .stat-num { color: var(--neon-green);  text-shadow: var(--glow-green); }
-
-  /* ── AUTHOR CARD ── */
+  /* ── AUTHOR GRID ── */
   .author-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
+  @media (max-width: 360px) {
+    .author-grid { grid-template-columns: 1fr; }
+  }
 
   .author-item {
-    background: #0d1228;
+    background: var(--bg-inner);
     border-radius: 6px;
-    padding: 10px;
+    padding: 10px 10px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
-  /* Top row: avatar + text */
+  /* Name row */
   .author-left {
     display: flex;
     align-items: center;
     gap: 8px;
     width: 100%;
   }
-
   .author-avatar {
     width: 30px; height: 30px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px; font-weight: 700;
     flex-shrink: 0;
   }
   .a1 { background: #00f5ff22; border: 1px solid var(--neon-cyan);   color: var(--neon-cyan);   }
@@ -267,81 +306,62 @@
   .a4 { background: #00ff8822; border: 1px solid var(--neon-green);  color: var(--neon-green);  }
 
   .author-info { min-width: 0; flex: 1; }
-  .author-name { font-size: 12px; font-weight: 700; line-height: 1.25; }
-  .author-id   { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text-dim); margin-top: 2px; }
-
-  /* QR sits below the name row, centred */
-  .author-qr {
-    width: 76px;
-    height: 76px;
-    border-radius: 4px;
-    overflow: hidden;
+  .author-name {
+    font-size: clamp(11px, 1.8vw, 13px);
+    font-weight: 700;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+  .author-id {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
   }
 
-  .author-item:nth-child(1) .author-qr { box-shadow: 0 0 6px #00f5ff88, 0 0 14px #00f5ff44; border: 1px solid #00f5ff66; }
-  .author-item:nth-child(2) .author-qr { box-shadow: 0 0 6px #bf00ff88, 0 0 14px #bf00ff44; border: 1px solid #bf00ff66; }
-  .author-item:nth-child(3) .author-qr { box-shadow: 0 0 6px #0080ff88, 0 0 14px #0080ff44; border: 1px solid #0080ff66; }
-  .author-item:nth-child(4) .author-qr { box-shadow: 0 0 6px #00ff8888, 0 0 14px #00ff8844; border: 1px solid #00ff8866; }
+  /* QR — scales with viewport, never overflows */
+  .author-qr {
+    width: clamp(60px, 18vw, 80px);
+    height: clamp(60px, 18vw, 80px);
+    border-radius: 5px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .author-item:nth-child(1) .author-qr { box-shadow: 0 0 6px #00f5ff99, 0 0 14px #00f5ff44; border: 1px solid #00f5ff77; }
+  .author-item:nth-child(2) .author-qr { box-shadow: 0 0 6px #bf00ff99, 0 0 14px #bf00ff44; border: 1px solid #bf00ff77; }
+  .author-item:nth-child(3) .author-qr { box-shadow: 0 0 6px #0080ff99, 0 0 14px #0080ff44; border: 1px solid #0080ff77; }
+  .author-item:nth-child(4) .author-qr { box-shadow: 0 0 6px #00ff8899, 0 0 14px #00ff8844; border: 1px solid #00ff8877; }
 
   .author-qr img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
     filter: saturate(1.2) brightness(1.05);
   }
 
+  /* ── SUPERVISOR ── */
   .supervisor-box {
-    margin-top: 12px; background: #0d1228; border-radius: 4px;
-    padding: 10px 14px; border-left: 2px solid var(--neon-purple);
-  }
-  .supervisor-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--neon-purple); letter-spacing: 2px; margin-bottom: 3px; }
-  .supervisor-name  { font-size: 14px; font-weight: 700; }
-
-  /* ── ETHICS CALLOUT ── */
-  .ethics-box {
-    background: #00ff8808;
-    border: 1px dashed #00ff8844;
+    margin-top: 12px;
+    background: var(--bg-inner);
     border-radius: 4px;
     padding: 10px 14px;
-    margin-top: 10px;
-    font-size: 12.5px;
-    color: var(--neon-green);
+    border-left: 2px solid var(--neon-purple);
+  }
+  .supervisor-label {
     font-family: 'Share Tech Mono', monospace;
-    line-height: 1.5;
-    text-shadow: var(--glow-green);
+    font-size: 10px;
+    color: var(--neon-purple);
+    letter-spacing: 2px;
+    margin-bottom: 3px;
   }
-
-  /* ── SPAN FULL ── */
-  .span-full { grid-column: 1 / -1; }
-
-  /* ── SCANLINE OVERLAY ── */
-  .scanlines {
-    position: fixed; inset: 0; pointer-events: none; z-index: 999;
-    background: repeating-linear-gradient(
-      0deg, transparent, transparent 3px, rgba(0,0,0,0.05) 3px, rgba(0,0,0,0.05) 4px
-    );
+  .supervisor-name {
+    font-size: clamp(13px, 2.5vw, 15px);
+    font-weight: 700;
   }
-
-  /* ── CORNER DECORATIONS ── */
-  .corner {
-    position: absolute; width: 16px; height: 16px;
-    border-color: var(--neon-cyan); border-style: solid;
-  }
-  .corner-tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
-  .corner-tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
-  .corner-bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
-  .corner-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
-
-  @keyframes scan {
-    0%   { top: -2px; opacity: 0.7; }
-    100% { top: 100%; opacity: 0; }
-  }
-  .scan-line {
-    position: absolute; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-    animation: scan 4s linear infinite;
-    pointer-events: none;
+  .supervisor-module {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 3px;
   }
 </style>
 </head>
@@ -350,18 +370,19 @@
 
 <div class="poster">
 
-  <!-- ══ HEADER ══ -->
+  <!-- HEADER -->
   <div class="header">
     <div class="scan-line"></div>
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
     <div class="header-badge">◈ IoT Security Research Project ◈ CST2590</div>
     <h1>PRISON.OS</h1>
     <div class="header-sub">Smart Prison System Management</div>
-    <div class="header-course">Internet of Things &nbsp;|&nbsp; Arduino MKR1010 &nbsp;|&nbsp; Real-Time Monitoring &nbsp;|&nbsp; Web Dashboard</div>
+    <div class="header-course">
+      Internet of Things &nbsp;·&nbsp; Arduino MKR1010<br>
+      Real-Time Monitoring &nbsp;·&nbsp; Web Dashboard
+    </div>
   </div>
 
-  <!-- ══ MAIN GRID ══ -->
+  <!-- GRID -->
   <div class="grid">
 
     <!-- 1 · PROJECT DESCRIPTION -->
@@ -371,7 +392,7 @@
       <div class="card-title"><span class="dot"></span>Project Description</div>
       <div class="body-text">
         <p><strong style="color:var(--neon-cyan)">PRISON.OS</strong> is an IoT-based smart security framework for correctional facilities. It replaces manual checks and legacy systems with <em>real-time, automated monitoring</em> across access control, environmental safety, perimeter security, and utility detection.</p>
-        <p>The system connects two Arduino MKR1010 units — a <strong>Control Room</strong> node and a <strong>Patrol Guard</strong> node — through a custom-built web application dashboard backed by InfluxDB for live time-series data storage and forensic-grade event logging.</p>
+        <p>The system connects two Arduino MKR1010 units — a <strong>Control Room</strong> node and a <strong>Patrol Guard</strong> node — through a custom-built web dashboard backed by InfluxDB for live time-series data storage and forensic-grade event logging.</p>
       </div>
       <div class="ethics-box">⚠ Ethical-by-design: No cameras · No audio · No biometrics · UN Mandela Rules compliant</div>
     </div>
@@ -452,7 +473,6 @@
       <div class="card-title"><span class="dot"></span>Author &amp; Supervisor</div>
       <div class="author-grid">
 
-        <!-- Darenn -->
         <div class="author-item">
           <div class="author-left">
             <div class="author-avatar a1">DR</div>
@@ -462,11 +482,10 @@
             </div>
           </div>
           <div class="author-qr">
-            <img src="Darenn.png" alt="QR – Darenn Ramsamy">
+            <img src="darenn.png" alt="QR – Darenn Ramsamy">
           </div>
         </div>
 
-        <!-- Ezekiel -->
         <div class="author-item">
           <div class="author-left">
             <div class="author-avatar a2">EA</div>
@@ -480,7 +499,6 @@
           </div>
         </div>
 
-        <!-- Zariyat -->
         <div class="author-item">
           <div class="author-left">
             <div class="author-avatar a3">ZM</div>
@@ -494,7 +512,6 @@
           </div>
         </div>
 
-        <!-- Lawson -->
         <div class="author-item">
           <div class="author-left">
             <div class="author-avatar a4">LA</div>
@@ -509,10 +526,11 @@
         </div>
 
       </div>
+
       <div class="supervisor-box">
         <div class="supervisor-label">▸ Module Supervisor</div>
         <div class="supervisor-name">Mr Nivede Issur</div>
-        <div class="author-id" style="margin-top:3px; font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--text-dim);">CST2590 — Internet of Things</div>
+        <div class="supervisor-module">CST2590 — Internet of Things</div>
       </div>
     </div>
 
